@@ -1,0 +1,49 @@
+--minimum viable product
+
+6 images
+
+on click of first image, flip image and stay
+
+on click of second image, if first image === second image, keep images flipped and no longer flippable. if first image !== second image, add to # of tries and flip back.
+
+when user matches all the cards, prompt congratulations you won in x tries.
+
+
+
+
+--additional features
+ask user to pick dog or cats AND level of difficulty (easy-6 cards, medium-12 cards, hard-18 cards)
+
+const userChoice = prompt("dogs or cats?").toLowerCase()
+
+if dog then images = dogs, if cat then images = cats
+
+if (userChoice === "dogs") {
+} else if (userChoice === "cats") {
+} else {
+}
+
+
+also add option to change animal and level of difficulty
+
+add how to play instructions
+
+add timer
+
+when first image === second image, add checkmark on images
+
+
+
+
+
+
+
+
+
+
+--
+MVP
+6 cards. user has to flip a card and find the matching card. if cannot find matching card, cards face down again and # of tries increment. if user can find matching card, cards stay open-faced. when all cards are matched, prompt congratulations you won in x tries.
+
+STRETCH GOALS
+level 2: on start, show instructions on how to play and allow user to choose level of difficulty (easy-6 cards, medium-12 cards, hard-18 cards). also add option to show instructions and change level at any time. level 3: add timer. user has to finish pairing cards before the allotted time.
