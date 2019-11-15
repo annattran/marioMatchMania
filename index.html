@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <link href="https://fonts.googleapis.com/css?family=Bangers&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Bangers|Montserrat&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/276b65d818.js" crossorigin="anonymous"></script>
+    <!-- <link rel="stylesheet" href="styles/styles.css"> -->
     <style>
         
         html {
@@ -23,14 +25,33 @@
             justify-content:center;
             align-items:center;
             font-family: 'Bangers', cursive;
-            color:white;
+            color:black;
         }
 
         p {
             font-size:4rem;
             padding: 0;
             margin: 0;
+        }
+
+        h2 {
+            font-size:5rem;
+            letter-spacing:.1rem;
+        }
+
+        p.moves {
+            color:white;
             text-align:right;
+        }
+
+        .modalContent p {
+            font-family: 'Montserrat', sans-serif;
+            font-size:3rem;
+            position: relative;
+        }
+
+        .congrats {
+            color:#027bbb;
         }
         
         ul,
@@ -118,6 +139,54 @@
             left:20px;
         }
 
+        .congratsModal {
+            display:none;
+            position:fixed;
+            z-index:1;
+            margin:0 auto;
+            width:50%;
+            overflow:auto;
+            background-color:rgba(255, 255, 255, .9);
+            border:10px black solid;
+            border-radius:25px;
+            animation: fade 1s linear;
+        }
+
+        .modalContent {
+            text-align:center;
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            overflow:hidden;
+        }
+
+        .playAgain {
+            display:flex;
+            justify-content:center;
+            align-items:center;
+        }
+
+        i {
+            font-size:4rem;
+            padding: 10px;
+        }
+
+        .playAgain, i {
+            cursor: pointer;
+            transition:1s;
+        }
+
+        .playAgain:hover, i:hover {
+            transform:scale(1.1);
+        }
+
+        .close {
+            text-align:right;
+            position:absolute;
+            right:10px;
+        }
+
+
         @keyframes chaChing {
             0% {
                 opacity:1;
@@ -155,6 +224,15 @@
             }
         }
 
+        @keyframes fade {
+            0% {
+                opacity:0;
+            }
+            100% {
+                opacity:1;
+            }
+        }
+
     </style>
 </head>
 
@@ -168,16 +246,20 @@
         <source src="assets/smb_coin.wav" type="audio/wav">
     </audio>
 
-    <!-- <div id="congratsModal" class="congratsModal">
+    <div id="congratsModal" class="congratsModal">
         <div class="modalContent">
-            <h2>Congratulations!</h2>
+            <div class="close"><i class="fas fa-times"></i></div>
+            <h2 class="congrats">Congratulations!</h2>
+            <p>It only took <span class="totalMoves"></span> moves!</p>
+            <p>Play again?</p>
+            <div class="playAgain"><h2>Play again</h2></div>
         </div>
-    </div> -->
+    </div>
 
 
     <div class="wrapper">
 
-        <p>Moves: <span class="counter">0</span></p>
+        <p class="moves">Moves: <span class="counter">0</span></p>
 
         <ul class="container">
             <div class="column">
