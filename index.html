@@ -10,50 +10,49 @@
     <script src="https://kit.fontawesome.com/276b65d818.js" crossorigin="anonymous"></script>
     <!-- <link rel="stylesheet" href="styles/styles.css"> -->
     <style>
-        
         html {
-            font-size:62.5%;
+            font-size: 62.5%;
         }
 
         body {
             background-image: linear-gradient(to top, #95dcf7, #027bbb);
             background-attachment: fixed;
-            height:100vh;
+            height: 100vh;
             margin: 0;
-            display:flex;
+            display: flex;
             flex-wrap: wrap;
-            justify-content:center;
-            align-items:center;
+            justify-content: center;
+            align-items: center;
             font-family: 'Bangers', cursive;
-            color:black;
+            color: black;
         }
 
         p {
-            font-size:4rem;
+            font-size: 4rem;
             padding: 0;
             margin: 0;
         }
 
         h2 {
-            font-size:5rem;
-            letter-spacing:.1rem;
+            font-size: 5rem;
+            letter-spacing: .1rem;
         }
 
         p.moves {
-            color:white;
-            text-align:right;
+            color: white;
+            text-align: right;
         }
 
         .modalContent p {
             font-family: 'Montserrat', sans-serif;
-            font-size:3rem;
+            font-size: 3rem;
             position: relative;
         }
 
-        .congrats {
-            color:#027bbb;
+        .title {
+            color: #027bbb;
         }
-        
+
         ul,
         li {
             padding: 0;
@@ -97,7 +96,7 @@
             height: 100%;
             backface-visibility: hidden;
             border-radius: 20px;
-            object-fit:cover;
+            object-fit: cover;
         }
 
         .front {
@@ -109,130 +108,193 @@
         }
 
         .back {
-            background:url(assets/brick.png);
-            background-size:cover;
-            background-position:center;
+            background: url(assets/brick.png);
+            background-size: cover;
+            background-position: center;
             transform: rotateY(-180deg);
         }
 
         .coin {
-            position:absolute;
-            opacity:0;
-            animation:chaChing 1s linear;
+            position: absolute;
+            opacity: 0;
+            animation: chaChing 1s linear;
         }
 
         .cloud {
-            position:absolute;
-            z-index:-1;
-            animation:float 3s linear infinite;
+            position: absolute;
+            z-index: -1;
+            animation: float 3s linear infinite;
         }
 
         .single {
-            width:300px;
-            top:20px;
-            right:40px;
+            width: 300px;
+            top: 20px;
+            right: 40px;
         }
 
         .double {
-            width:400px;
-            top:40px;
-            left:20px;
+            width: 400px;
+            top: 40px;
+            left: 20px;
         }
 
-        .congratsModal {
-            display:none;
-            position:fixed;
-            z-index:1;
-            margin:0 auto;
-            width:50%;
-            overflow:auto;
-            background-color:rgba(255, 255, 255, .9);
-            border:10px black solid;
-            border-radius:25px;
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            margin: 0 auto;
+            max-width: 100%;
+            overflow: auto;
+            background-color: rgba(255, 255, 255, .9);
+            border: 10px black solid;
+            border-radius: 25px;
             animation: fade 1s linear;
         }
 
-        .modalContent {
-            text-align:center;
-            display:flex;
-            flex-direction:column;
-            align-items:center;
-            overflow:hidden;
+        .congrats.modal {
+            width: 650px;
         }
 
-        .playAgain {
-            display:flex;
-            justify-content:center;
-            align-items:center;
+        .instructions.modal {
+            width: 800px;
+        }
+
+        .modalContent {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .instructions .modalContent {
+            padding: 20px;
         }
 
         i {
-            font-size:4rem;
+            font-size: 4rem;
             padding: 10px;
         }
 
-        .playAgain, i {
+        .playAgain,
+        .ready,
+        i {
             cursor: pointer;
-            transition:1s;
+            transition: 1s;
         }
 
-        .playAgain:hover, i:hover {
-            transform:scale(1.1);
+        .playAgain:hover,
+        .ready:hover,
+        i:hover {
+            transform: scale(1.1);
         }
 
         .close {
-            text-align:right;
-            position:absolute;
-            right:10px;
+            text-align: right;
+            position: absolute;
+            right: 10px;
+        }
+
+        .controls {
+            border: 1px solid red;
+        }
+
+        .fa-volume-mute,
+        .fa-volume-up {
+            position: absolute;
+            top: 30px;
+            right: 50px;
+            color:white;
+        }
+
+        .question {
+            width: 150px;
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            cursor: pointer;
+        }
+
+        .question:hover {
+            animation: rumble 1s linear infinite;
         }
 
 
         @keyframes chaChing {
             0% {
-                opacity:1;
-                bottom:20%;
+                opacity: 1;
+                bottom: 20%;
             }
+
             30% {
                 bottom: 0%;
-                transform:translateX(20px);
+                transform: translateX(20px);
             }
+
             60% {
-                bottom:20%;
-                transform:translateX(40px);
+                bottom: 20%;
+                transform: translateX(40px);
             }
+
             100% {
-                bottom:0%;
-                transform:translateX(60px);
+                bottom: 0%;
+                transform: translateX(60px);
             }
         }
 
         @keyframes float {
             0% {
-                transform:translateX(20px) translateY(20px);
+                transform: translateX(20px) translateY(20px);
             }
+
             25% {
-                transform:translateX(-20px) translateY(40px);
+                transform: translateX(-20px) translateY(40px);
             }
+
             50% {
-                transform:translateX(20px) translateY(20px);
+                transform: translateX(20px) translateY(20px);
             }
+
             75% {
-                transform:translateX(-20px) translateY(0px);
+                transform: translateX(-20px) translateY(0px);
             }
+
             100% {
-                transform:translateX(20px) translateY(20px);
+                transform: translateX(20px) translateY(20px);
             }
         }
 
         @keyframes fade {
             0% {
-                opacity:0;
+                opacity: 0;
             }
+
             100% {
-                opacity:1;
+                opacity: 1;
             }
         }
 
+        @keyframes rumble {
+            0% {
+                transform: rotate(3deg);
+            }
+
+            25% {
+                transform: rotate(-3deg);
+            }
+
+            50% {
+                transform: rotate(3deg);
+            }
+
+            75% {
+                transform: rotate(-3deg);
+            }
+
+            100% {
+                transform: rotate(3deg);
+            }
+        }
     </style>
 </head>
 
@@ -246,15 +308,40 @@
         <source src="assets/smb_coin.wav" type="audio/wav">
     </audio>
 
-    <div id="congratsModal" class="congratsModal">
-        <div class="modalContent">
+    <audio id="win">
+        <source src="assets/smb_stage_clear.wav" type="audio/wav">
+    </audio>
+
+    <div id="congratsModal" class="congrats modal">
+        <div class="congrats modalContent">
             <div class="close"><i class="fas fa-times"></i></div>
-            <h2 class="congrats">Congratulations!</h2>
+            <h2 class="title">Congratulations!</h2>
             <p>It only took <span class="totalMoves"></span> moves!</p>
             <p>Play again?</p>
-            <div class="playAgain"><h2>Play again</h2></div>
+            <div class="playAgain">
+                <h2>Play again</h2>
+            </div>
         </div>
     </div>
+
+    <div id="instructionsModal" class="instructions modal">
+        <div class="modalContent">
+            <div class="close"><i class="fas fa-times"></i></div>
+            <h2 class="title">How to play</h2>
+            <p>Turn over any two cards. If the two cards match, you're one step closer to winning! If they don't match,
+                the cards turn back over. Remember what is on each card and where it is. The game is over when all the
+                cards have been matched.</p>
+            <p>Ready to play?</p>
+            <div class="ready">
+                <h2>Ready</h2>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- <i class="fas fa-volume-up"></i> -->
+    <i id="sound" class="fas fa-volume-mute"></i>
+    <img class="question" src="assets/question-mark.png">
 
 
     <div class="wrapper">

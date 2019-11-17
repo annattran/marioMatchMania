@@ -114,44 +114,17 @@ $(document).ready(function () {
 
     cloudAnimation();
 
-    const sound = document.getElementById("sound");
-    console.log(sound);
-
-    function toggleVolume() {
-        $(sound).on('click', function () {
-            $(sound).toggleClass('fa-volume-mute fa-volume-up');
-        })
-    }
-
-    toggleVolume();
 
     function fireballSound() {
         const fireball = document.getElementById("fireball");
-        if ($(sound).hasClass('fa-volume-mute')) {
-            fireball.pause();
-        } else {
-            fireball.play();
-        }
+        fireball.play();
     }
 
     function coinSound() {
         setTimeout(function () {
             const coin = document.getElementById("coin");
-            if ($(sound).hasClass('fa-volume-mute')) {
-                coin.pause();
-            } else {
-                coin.play();
-            }
+            coin.play();
         }, 500);
-    }
-
-    function winSound() {
-        const win = document.getElementById("win");
-        if ($(sound).hasClass('fa-volume-mute')) {
-            win.pause();
-        } else {
-            win.play();
-        }
     }
 
     function openCongrats() {
@@ -159,52 +132,28 @@ $(document).ready(function () {
             setTimeout(function () {
                 document.getElementById('congratsModal').style.display = "block";
             }, 500);
-            setTimeout(function () {
-                winSound();
-            }, 800);
         }
     }
 
-    function clickQuestionMark() {
-        $('.question').on('click', function () {
-            openInstructions();
-        });
-    }
-
-    clickQuestionMark();
-
     function closeCongrats() {
-        $('.congrats .close').on('click', function () {
+        $('.close').on('click', function () {
             document.getElementById('congratsModal').style.display = "none";
         });
     }
 
-    function openInstructions() {
-        document.getElementById('instructionsModal').style.display = "block";
-    }
+    function playAgain() {
+        $('.playAgain').on('click', function () {
+            for (i = 1; i <= deck.length; i++) {
 
-    function closeInstructions() {
-        $('.instructions .close').on('click', function () {
-            document.getElementById('instructionsModal').style.display = "none";
+            }
         });
     }
 
-    openInstructions();
-    closeInstructions();
-
-    // function playAgain() {
-    //     $('.playAgain').on('click', function () {
-    //         for (i = 1; i <= deck.length; i++) {
-
-    //         }
-    //     });
-    // }
-
-    // function randomImg() {
-    //     let randomNumber = Math.floor(Math.random() * (8 - 1)) + 1;
-    //     let imgName = "panda_gif_" + randomNumber + ".gif";
-    //     document.getElementById("imageid").src = "assets" + "/" + imgName;
-    // }
+    function randomImg() {
+        let randomNumber = Math.floor(Math.random() * (8 - 1)) + 1;
+        let imgName = "panda_gif_" + randomNumber + ".gif";
+        document.getElementById("imageid").src = "assets" + "/" + imgName;
+    }
 
 
 
@@ -237,8 +186,7 @@ $(document).ready(function () {
             flippedCards.push($(this));
             console.log(flippedCards);
 
-            matchedCards.push($('.matched'));
-            // matchedCards.push($('body').find('.matched'));
+            matchedCards.push($('body').find('.matched'));
             console.log(matchedCards);
 
 
