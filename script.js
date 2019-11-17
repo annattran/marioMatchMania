@@ -215,13 +215,13 @@ $(document).ready(function () {
         callback();
     }
 
-    function clickQuestionMark() {
+    function clickQuestionBox() {
         $('.question').on('click', function () {
             openInstructions();
         });
     }
 
-    clickQuestionMark();
+    clickQuestionBox();
 
     function closeCongrats() {
         $('.congrats .close, .playAgain').on('click', function () {

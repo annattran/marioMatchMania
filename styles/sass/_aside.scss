@@ -1,0 +1,45 @@
+.fa-volume-mute,
+.fa-volume-up {
+  position: absolute;
+  top: 30px;
+  right: 50px;
+  color: white;
+}
+
+.question {
+  width: 150px;
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  cursor: pointer;
+}
+
+@media (max-width:1180px) {
+  .question {
+    width: 120px;
+    bottom: 0px;
+  }
+}
+
+@media (max-width:890px) {
+  .question {
+    width:70px;
+  }
+}
+
+@media (max-width:650px) {
+  .question {
+    width: 50px;
+  }
+  .fa-volume-mute,
+  .fa-volume-up {
+    top: 20px;
+    right:initial;
+    left:20px;
+  }
+}
+
+.question:hover {
+  -webkit-animation: rumble 1s linear infinite;
+          animation: rumble 1s linear infinite;
+}

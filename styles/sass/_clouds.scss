@@ -1,0 +1,42 @@
+.cloud {
+  position: absolute;
+  z-index: -1;
+  -webkit-animation: float 3s linear infinite;
+          animation: float 3s linear infinite;
+}
+
+.single {
+  width: 300px;
+  top: 20px;
+  right: 40px;
+}
+
+.double {
+  width: 400px;
+  top: 40px;
+  left: 20px;
+}
+
+@media (max-width:1180px) {
+  .single {
+    width: 200px;
+  }
+  .double {
+    width: 300px;
+  }
+}
+
+@media (max-width:890px) {
+  .single {
+    display:none;
+  }
+  .double {
+    width: 250px;
+  }
+}
+
+@media (max-width:650px) {
+  .double {
+    width: 150px;
+  }
+}

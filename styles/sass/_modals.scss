@@ -1,0 +1,92 @@
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  max-width: 100%;
+  max-height:100%;
+  overflow: auto;
+  background-color: rgba(255, 255, 255, 0.9);
+  border: 10px black solid;
+  border-radius: 25px;
+  -webkit-animation: fade 1s linear;
+          animation: fade 1s linear;
+}
+
+.congrats.modal {
+  width: 650px;
+}
+
+.instructions.modal {
+  width: 800px;
+}
+
+.modalContent {
+  text-align: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  overflow: hidden;
+}
+
+.instructions .modalContent {
+  padding: 20px;
+}
+
+.modalContent p {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 3rem;
+}
+
+@media (max-width:1180px) {
+  .modalContent p {
+    font-size:2.5rem;
+  }
+}
+@media (max-width:650px) {
+  .modalContent p {
+    font-size:2rem;
+  }
+}
+
+.title {
+  color: #027bbb;
+}
+
+i {
+  font-size: 4rem;
+  padding: 10px;
+}
+
+@media (max-width:650px) {
+  i {
+    font-size:3rem;
+  }
+}
+
+.playAgain,
+.ready,
+i {
+  cursor: pointer;
+  -webkit-transition: 1s;
+  transition: 1s;
+}
+
+.playAgain:hover,
+.ready:hover,
+i:hover {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
+
+.close {
+  text-align: right;
+  position: absolute;
+  right: 10px;
+}
