@@ -78,9 +78,8 @@ $(document).ready(function () {
                 enableFlipping();
                 counter();
                 totalMoves();
-                openCongrats();
+                openCongrats(playAgain);
                 closeCongrats();
-                // playAgain();
             } else {
                 console.log('false?', flippedImages[0] === flippedImages[1]);
                 setTimeout(function () {
@@ -120,6 +119,7 @@ $(document).ready(function () {
     function toggleVolume() {
         $(sound).on('click', function () {
             $(sound).toggleClass('fa-volume-mute fa-volume-up');
+            backgroundSound();
         })
     }
 
@@ -154,15 +154,28 @@ $(document).ready(function () {
         }
     }
 
-    function openCongrats() {
+    const background = document.getElementById("background");
+    function backgroundSound() {
+        background.loop = true;
+        
+        if ($(sound).hasClass('fa-volume-mute')) {
+            background.pause();
+        } else {
+            background.play();
+        }
+    }
+
+    function openCongrats(callback) {
         if (matchedCards.length === maxMatches) {
             setTimeout(function () {
                 document.getElementById('congratsModal').style.display = "block";
             }, 500);
             setTimeout(function () {
+                background.pause();
                 winSound();
             }, 800);
         }
+        callback();
     }
 
     function clickQuestionMark() {
@@ -174,7 +187,7 @@ $(document).ready(function () {
     clickQuestionMark();
 
     function closeCongrats() {
-        $('.congrats .close').on('click', function () {
+        $('.congrats .close, .playAgain').on('click', function () {
             document.getElementById('congratsModal').style.display = "none";
         });
     }
@@ -184,7 +197,7 @@ $(document).ready(function () {
     }
 
     function closeInstructions() {
-        $('.instructions .close').on('click', function () {
+        $('.instructions .close, .ready').on('click', function () {
             document.getElementById('instructionsModal').style.display = "none";
         });
     }
@@ -192,13 +205,18 @@ $(document).ready(function () {
     openInstructions();
     closeInstructions();
 
-    // function playAgain() {
-    //     $('.playAgain').on('click', function () {
-    //         for (i = 1; i <= deck.length; i++) {
-
-    //         }
-    //     });
-    // }
+    function playAgain() {
+        $('.playAgain').on('click', function () {
+            // for (i = 1; i <= deck.length; i++) {
+            // }
+            $('.counter').text(0);
+            $('li').removeClass('flipped matched');
+            // $('li').toggleClass('flipped').removeClass('matched');
+            matchedCards = [];
+            enableFlipping();
+            backgroundSound();
+        });
+    }
 
     // function randomImg() {
     //     let randomNumber = Math.floor(Math.random() * (8 - 1)) + 1;
