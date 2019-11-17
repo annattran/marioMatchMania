@@ -1,7 +1,7 @@
 $(document).ready(function () {
     console.log('ready');
 
-    $('li').on('dragstart', function(event) {
+    $('li').on('dragstart', function (event) {
         event.preventDefault();
     });
 
@@ -16,9 +16,42 @@ $(document).ready(function () {
     // returns a node list
 
 
-    const deck = Array.from(cards);
-    console.log('array', deck)
+
+    // const deck = Array.from(cards);
+    // console.log('array', deck)
     // converts node list to an array
+
+    // let cardImages = [];
+    // deck.forEach(function (card) {
+    //     cardImages.push(card);
+    //     console.log(cardImages);
+    // });
+
+
+    const frontOfCards = [];
+
+
+
+
+    function shuffle(array) {
+        let currentIndex = array.length, temporaryValue, randomIndex;
+
+        while (0 !== currentIndex) {
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex = currentIndex - 1;
+
+            temporaryValue = array[currentIndex];
+            array[currentIndex] = array[randomIndex];
+            array[randomIndex] = temporaryValue;
+        }
+
+        return array;
+    }
+
+
+
+
+
 
 
     let flippedImages = [];
@@ -45,7 +78,7 @@ $(document).ready(function () {
         callback();
     }
 
-    const maxMatches = deck.length;
+    const maxMatches = cards.length;
 
     function enableFlipping() {
 
@@ -161,7 +194,7 @@ $(document).ready(function () {
     const background = document.getElementById("background");
     function backgroundSound() {
         background.loop = true;
-        
+
         if ($(sound).hasClass('fa-volume-mute')) {
             background.pause();
         } else {
@@ -219,6 +252,8 @@ $(document).ready(function () {
             matchedCards = [];
             enableFlipping();
             backgroundSound();
+            shuffle(frontOfCards);
+            displayShuffle();
         });
     }
 
@@ -240,6 +275,9 @@ $(document).ready(function () {
     // for each card
     cards.forEach(function (card) {
         console.log('card', card);
+
+        frontOfCards.push($(card).find('img').attr('src'));
+        console.log(frontOfCards);
 
         // on click
         $(card).on('click', function () {
@@ -285,6 +323,23 @@ $(document).ready(function () {
         });
     });
 
+
+
+    console.log(frontOfCards);
+    shuffledCards = shuffle(frontOfCards);
+    console.log(shuffledCards);
+
+
+
+    
+    function displayShuffle() {
+        for (i = 0; i < shuffledCards.length; i++) {
+            let newImage = `<img src="${shuffledCards[i]}">`
+
+            $(`.front.${i}`).html(newImage);
+            console.log(`.front.${i}`)
+        }
+    }
 
 
 
