@@ -5,317 +5,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <link rel="shortcut icon" type="image/x-icon" href="assets/mario.ico">
+    <title>Mario Match Mania</title>
     <link href="https://fonts.googleapis.com/css?family=Bangers|Montserrat&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/276b65d818.js" crossorigin="anonymous"></script>
-    <!-- <link rel="stylesheet" href="styles/styles.css"> -->
-    <style>
-        html {
-            font-size: 62.5%;
-        }
-
-        body {
-            background-image: linear-gradient(to top, #95dcf7, #027bbb);
-            background-attachment: fixed;
-            height: 100vh;
-            margin: 0;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-items: center;
-            font-family: 'Bangers', cursive;
-            color: black;
-        }
-
-        p {
-            font-size: 4rem;
-            padding: 0;
-            margin: 0;
-        }
-
-        h2 {
-            font-size: 5rem;
-            letter-spacing: .1rem;
-        }
-
-        p.moves {
-            color: white;
-            text-align: right;
-        }
-
-        .modalContent p {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 3rem;
-            position: relative;
-        }
-
-        .title {
-            color: #027bbb;
-        }
-
-        ul,
-        li {
-            padding: 0;
-            margin: 0;
-            list-style: none;
-        }
-
-        img {
-            max-width: calc(100% - 40px);
-            margin: 20px;
-            max-height: calc(100% - 40px);
-        }
-
-        .container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            /* border: 1px solid blue; */
-            perspective: 1000px;
-        }
-
-        .card {
-            width: 210px;
-            height: 210px;
-            margin: 20px;
-            position: relative;
-            cursor: pointer;
-            transform-style: preserve-3d;
-            transform-origin: center right;
-            transition: all 1s;
-        }
-
-        .card.flipped,
-        .card.matched {
-            transform: translateX(-100%) rotateY(180deg);
-        }
-
-        .face {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
-            border-radius: 20px;
-            object-fit: cover;
-        }
-
-        .front {
-            background: orangered;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .back {
-            background: url(assets/brick.png);
-            background-size: cover;
-            background-position: center;
-            transform: rotateY(-180deg);
-        }
-
-        .coin {
-            position: absolute;
-            opacity: 0;
-            animation: chaChing 1s linear;
-        }
-
-        .cloud {
-            position: absolute;
-            z-index: -1;
-            animation: float 3s linear infinite;
-        }
-
-        .single {
-            width: 300px;
-            top: 20px;
-            right: 40px;
-        }
-
-        .double {
-            width: 400px;
-            top: 40px;
-            left: 20px;
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            margin: 0 auto;
-            max-width: 100%;
-            overflow: auto;
-            background-color: rgba(255, 255, 255, .9);
-            border: 10px black solid;
-            border-radius: 25px;
-            animation: fade 1s linear;
-        }
-
-        .congrats.modal {
-            width: 650px;
-        }
-
-        .instructions.modal {
-            width: 800px;
-        }
-
-        .modalContent {
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            overflow: hidden;
-        }
-
-        .instructions .modalContent {
-            padding: 20px;
-        }
-
-        i {
-            font-size: 4rem;
-            padding: 10px;
-        }
-
-        .playAgain,
-        .ready,
-        i {
-            cursor: pointer;
-            transition: 1s;
-        }
-
-        .playAgain:hover,
-        .ready:hover,
-        i:hover {
-            transform: scale(1.1);
-        }
-
-        .close {
-            text-align: right;
-            position: absolute;
-            right: 10px;
-        }
-
-        .controls {
-            border: 1px solid red;
-        }
-
-        .fa-volume-mute,
-        .fa-volume-up {
-            position: absolute;
-            top: 30px;
-            right: 50px;
-            color:white;
-        }
-
-        .question {
-            width: 150px;
-            position: absolute;
-            bottom: 20px;
-            right: 20px;
-            cursor: pointer;
-        }
-
-        .question:hover {
-            animation: rumble 1s linear infinite;
-        }
-
-
-        @keyframes chaChing {
-            0% {
-                opacity: 1;
-                bottom: 20%;
-            }
-
-            30% {
-                bottom: 0%;
-                transform: translateX(20px);
-            }
-
-            60% {
-                bottom: 20%;
-                transform: translateX(40px);
-            }
-
-            100% {
-                bottom: 0%;
-                transform: translateX(60px);
-            }
-        }
-
-        @keyframes float {
-            0% {
-                transform: translateX(20px) translateY(20px);
-            }
-
-            25% {
-                transform: translateX(-20px) translateY(40px);
-            }
-
-            50% {
-                transform: translateX(20px) translateY(20px);
-            }
-
-            75% {
-                transform: translateX(-20px) translateY(0px);
-            }
-
-            100% {
-                transform: translateX(20px) translateY(20px);
-            }
-        }
-
-        @keyframes fade {
-            0% {
-                opacity: 0;
-            }
-
-            100% {
-                opacity: 1;
-            }
-        }
-
-        @keyframes rumble {
-            0% {
-                transform: rotate(3deg);
-            }
-
-            25% {
-                transform: rotate(-3deg);
-            }
-
-            50% {
-                transform: rotate(3deg);
-            }
-
-            75% {
-                transform: rotate(-3deg);
-            }
-
-            100% {
-                transform: rotate(3deg);
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="styles/styles.css">
 </head>
 
 <body>
 
+    <!-- SOUND EFFECTS AND BACKGROUND MUSIC -->
     <audio id="fireball">
-        <source src="assets/smb_fireball.wav" type="audio/wav">
+        <source src="assets/smbFireball.wav" type="audio/wav">
     </audio>
 
     <audio id="coin">
-        <source src="assets/smb_coin.wav" type="audio/wav">
+        <source src="assets/smbCoin.wav" type="audio/wav">
     </audio>
 
     <audio id="win">
-        <source src="assets/smb_stage_clear.wav" type="audio/wav">
+        <source src="assets/smbStageClear.wav" type="audio/wav">
     </audio>
 
     <audio id="background">
-        <source src="assets/super-mario-bros.mp3" type="audio/mpeg">
+        <source src="assets/smb.mp3" type="audio/mpeg">
     </audio>
 
+
+    <!-- MODALS -->
     <div id="congratsModal" class="congrats modal">
         <div class="congrats modalContent">
             <div class="close"><i class="fas fa-times"></i></div>
@@ -343,62 +60,66 @@
     </div>
 
 
-    <!-- <i class="fas fa-volume-up"></i> -->
+    <!-- SOUND AND HELP BUTTON -->
     <i id="sound" class="fas fa-volume-mute"></i>
-    <img class="question" src="assets/question-mark.png">
+    <img class="question" src="assets/questionBox.png">
 
 
-    <div class="wrapper">
+    <!-- MAIN AREA -->
+    <main class="wrapper">
 
+        <!-- COUNTER -->
         <p class="moves">Moves: <span class="counter">0</span></p>
 
+        <!-- CONTAINER FOR CARDS -->
         <ul class="container">
             <div class="column">
                 <li class="card">
-                    <div class="front 0 face">
-                        <img src="assets/card-1.png">
+                    <div class="front face 0">
+                        <img src="assets/card1.png">
                     </div>
                     <div class="back face"></div>
                 </li>
                 <li class="card">
-                    <div class="front 1 face">
-                        <img src="assets/card-2.png">
-                    </div>
-                    <div class="back face"></div>
-                </li>
-            </div>
-            <div class="column">
-                <li class="card">
-                    <div class="front 2 face">
-                        <img src="assets/card-2.png">
-                    </div>
-                    <div class="back face"></div>
-                </li>
-                <li class="card">
-                    <div class="front 3 face">
-                        <img src="assets/card-3.png">
+                    <div class="front face 1">
+                        <img src="assets/card2.png">
                     </div>
                     <div class="back face"></div>
                 </li>
             </div>
             <div class="column">
                 <li class="card">
-                    <div class="front 4 face">
-                        <img src="assets/card-1.png">
+                    <div class="front face 2">
+                        <img src="assets/card2.png">
                     </div>
                     <div class="back face"></div>
                 </li>
                 <li class="card">
-                    <div class="front 5 face">
-                        <img src="assets/card-3.png">
+                    <div class="front face 3">
+                        <img src="assets/card3.png">
+                    </div>
+                    <div class="back face"></div>
+                </li>
+            </div>
+            <div class="column">
+                <li class="card">
+                    <div class="front face 4">
+                        <img src="assets/card1.png">
+                    </div>
+                    <div class="back face"></div>
+                </li>
+                <li class="card">
+                    <div class="front face 5">
+                        <img src="assets/card3.png">
                     </div>
                     <div class="back face"></div>
                 </li>
             </div>
         </ul>
 
-    </div>
+    </main>
 
+    <!-- SCRIPT TAGS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="script.js"></script>
 

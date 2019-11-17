@@ -144,8 +144,8 @@ $(document).ready(function () {
     }
 
     function cloudAnimation() {
-        $('body').append('<img class="single cloud" src="assets/single-cloud.png">');
-        $('body').append('<img class="double cloud" src="assets/double-cloud.png">');
+        $('body').append('<img class="single cloud" src="assets/singleCloud.png">');
+        $('body').append('<img class="double cloud" src="assets/doubleCloud.png">');
     }
 
     cloudAnimation();
@@ -331,7 +331,7 @@ $(document).ready(function () {
 
 
 
-    
+
     function displayShuffle() {
         for (i = 0; i < shuffledCards.length; i++) {
             let newImage = `<img src="${shuffledCards[i]}">`
