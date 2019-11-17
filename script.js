@@ -1,6 +1,10 @@
 $(document).ready(function () {
     console.log('ready');
 
+    $('li').on('dragstart', function(event) {
+        event.preventDefault();
+    });
+
 
     // const cards = $('body').find('li')
     // console.log('object', cards);
