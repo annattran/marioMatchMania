@@ -78,6 +78,8 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  -webkit-transform: rotateY(-180deg);
+          transform: rotateY(-180deg);
 }
 
 img {
@@ -98,6 +100,4 @@ img {
   background: url(../assets/brick.png);
   background-size: cover;
   background-position: center;
-  -webkit-transform: rotateY(-180deg);
-          transform: rotateY(-180deg);
 }
