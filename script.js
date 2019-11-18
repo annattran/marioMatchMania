@@ -1,112 +1,92 @@
 $(document).ready(function () {
-    console.log('ready');
+    const cards = Array.from($('body').find('li'));
+    // initial return is an object
+    // Array.from converts the object to an array
 
+
+    // GLOBAL VARIABLES
+    const cardImages = []; // to contain img names of all cards
+    const backgroundMusic = document.getElementById("background");
+    const soundButton = document.getElementById("sound");
+    let flippedCards = []; // to contain cards that are flipped
+    let matchedCards = []; // to contain cards that are matched
+    let flippedImages = []; // to contain img names that are flipped
+
+
+    // FUNCTIONS --------------------------------------------------------------
+    // prevent ghost images from being dragged
     $('li').on('dragstart', function (event) {
         event.preventDefault();
     });
 
 
-    // const cards = $('body').find('li')
-    // console.log('object', cards);
-    // returns an object
+    // for each item in array 'cards'
+    cards.forEach(function (card) {
+        // find the img name of the item and push into cardImages array
+        cardImages.push($(card).find('img').attr('src'));
 
+        // and add alt tags to the images with the specified attribute
+        $('img[src="assets/card1.png"]').attr('alt', 'Mario character from Mario franchise');
+        $('img[src="assets/card2.png"]').attr('alt', 'Red and white mushroom from Mario franchise');
+        $('img[src="assets/card3.png"]').attr('alt', 'Bowsy character from Mario franchise');
 
-    const cards = document.querySelectorAll('li');
-    console.log('node list', cards);
-    // returns a node list
-
-
-
-    // const deck = Array.from(cards);
-    // console.log('array', deck)
-    // converts node list to an array
-
-    // let cardImages = [];
-    // deck.forEach(function (card) {
-    //     cardImages.push(card);
-    //     console.log(cardImages);
-    // });
-
-
-    const frontOfCards = [];
-
-
-
-
-    function shuffle(array) {
-        let currentIndex = array.length, temporaryValue, randomIndex;
-
-        while (0 !== currentIndex) {
-            randomIndex = Math.floor(Math.random() * currentIndex);
-            currentIndex = currentIndex - 1;
-
-            temporaryValue = array[currentIndex];
-            array[currentIndex] = array[randomIndex];
-            array[randomIndex] = temporaryValue;
-        }
-
-        return array;
-    }
-
-
-
-
-
-
-
-    let flippedImages = [];
-    console.log('array', flippedImages);
-    // empty array for flippedImages
-
-    let flippedCards = [];
-    console.log('array', flippedCards);
-
-    let matchedCards = [];
+        // additionally, on the click of each item
+        $(card).on('click', function () {
+            // add class of flipped
+            card.classList.toggle('flipped');
+            // run fireballSound
+            fireballSound();
+            // make the item unflippable
+            $(this).children().on('click', false);
+            // log this card as flipped
+            flippedCards.push($(this));
+            // log the card's img name as flipped
+            flippedImages.push($(this).find('img').attr('src'));
+            // look for elements with the class of 'matched'
+            // and push into matchedCards array
+            matchedCards.push($('.matched'));
+            // run disableFlipping and compareCards
+            disableFlipping(compareCards);
+        });
+    });
 
 
     function disableFlipping(callback) {
-        const numberOfFlippedImages = $('.flipped').length;
-        // returns a number
-
-
-        if (numberOfFlippedImages % 2 === 0) {
-            // do not let anymore cards be flippable
+        if (flippedImages.length % 2 === 0) {
+            // if number of flipped images is perfectly divisible by 2
             $('li').children().on('click', false);
-            console.log('no more flipping');
+            // do not let anymore cards be flippable
         }
-
         callback();
     }
 
-    const maxMatches = cards.length;
 
     function enableFlipping() {
-
-        if (matchedCards.length % 2 === 0) {
-            $('.card').not('.matched, .flipped').children().off('click');
-            console.log('ENABLE CLICKING!!!!!!!!');
-            console.log(maxMatches, matchedCards.length);
-        }
+        $('li').not('.matched').children().off('click');
+        // enable flipping on cards except cards with the class of 'matched'
     }
+
 
     function clearArrays() {
         flippedCards = [];
         flippedImages = [];
     }
 
+
     function counter() {
         let counter = parseInt($('.counter').text());
         $('.counter').text(counter + 1);
     }
 
+
     function totalMoves() {
         let totalMoves = $('.totalMoves').text($('.counter').text());
     }
 
+
     function compareCards() {
         if (flippedImages.length === 2) {
             if (flippedImages[0] === flippedImages[1]) {
-                console.log('true?', flippedImages[0] === flippedImages[1]);
                 flippedCards[0].addClass('matched');
                 flippedCards[1].addClass('matched');
                 coinAnimation();
@@ -118,28 +98,24 @@ $(document).ready(function () {
                 openCongrats(playAgain);
                 closeCongrats();
             } else {
-                console.log('false?', flippedImages[0] === flippedImages[1]);
                 setTimeout(function () {
                     flippedCards[0].removeClass('flipped');
                     flippedCards[1].removeClass('flipped');
                     clearArrays();
                     matchedCards.splice(-2);
-                    console.log(flippedCards);
-                    console.log(flippedCards[0]);
-                    console.log(flippedCards[1]);
                     enableFlipping();
                     counter();
                     totalMoves();
-                    console.log(flippedCards);
                 }, 1000);
-                // 1000 = 1 second
             }
         }
     }
 
+
     function coinAnimation() {
         setTimeout(function () {
-            $('.matched div.back').html('<img class="coin" src="assets/coin.png">');
+            $('.matched .back').html('<img class="coin" src="assets/coin.png">');
+            // insert html inside elements with the class of 'back' and has a parent with class of 'matched'
         }, 500);
     }
 
@@ -148,19 +124,14 @@ $(document).ready(function () {
         $('body').append('<img class="double cloud" src="assets/doubleCloud.png">');
     }
 
-    cloudAnimation();
 
-    const sound = document.getElementById("sound");
-    console.log(sound);
-
-    function toggleVolume() {
-        $(sound).on('click', function () {
-            $(sound).toggleClass('fa-volume-mute fa-volume-up');
+    function toggleSound() {
+        $(soundButton).on('click', function () {
+            $(soundButton).toggleClass('fa-volume-mute fa-volume-up');
             backgroundSound();
         })
     }
 
-    toggleVolume();
 
     function fireballSound() {
         const fireball = document.getElementById("fireball");
@@ -171,9 +142,10 @@ $(document).ready(function () {
         }
     }
 
+
     function coinSound() {
+        const coin = document.getElementById("coin");
         setTimeout(function () {
-            const coin = document.getElementById("coin");
             if ($(sound).hasClass('fa-volume-mute')) {
                 coin.pause();
             } else {
@@ -181,6 +153,7 @@ $(document).ready(function () {
             }
         }, 500);
     }
+
 
     function winSound() {
         const win = document.getElementById("win");
@@ -191,19 +164,19 @@ $(document).ready(function () {
         }
     }
 
-    const background = document.getElementById("background");
-    function backgroundSound() {
-        background.loop = true;
 
+    function backgroundSound() {
+        backgroundMusic.loop = true;
         if ($(sound).hasClass('fa-volume-mute')) {
-            background.pause();
+            backgroundMusic.pause();
         } else {
-            background.play();
+            backgroundMusic.play();
         }
     }
 
+
     function openCongrats(callback) {
-        if (matchedCards.length === maxMatches) {
+        if (matchedCards.length === cards.length) {
             setTimeout(function () {
                 document.getElementById('congratsModal').style.display = "block";
             }, 500);
@@ -215,13 +188,13 @@ $(document).ready(function () {
         callback();
     }
 
+
     function clickQuestionBox() {
         $('.question').on('click', function () {
             openInstructions();
         });
     }
 
-    clickQuestionBox();
 
     function closeCongrats() {
         $('.congrats .close, .playAgain').on('click', function () {
@@ -229,9 +202,11 @@ $(document).ready(function () {
         });
     }
 
+
     function openInstructions() {
         document.getElementById('instructionsModal').style.display = "block";
     }
+
 
     function closeInstructions() {
         $('.instructions .close, .ready').on('click', function () {
@@ -239,139 +214,54 @@ $(document).ready(function () {
         });
     }
 
-    openInstructions();
-    closeInstructions();
 
     function playAgain() {
+        // on click of playAgain
         $('.playAgain').on('click', function () {
-            // for (i = 1; i <= deck.length; i++) {
-            // }
+            // reset counter to 0
             $('.counter').text(0);
+            // remove 'flipped' & 'matched' classes off all cards
             $('li').removeClass('flipped matched');
-            // $('li').toggleClass('flipped').removeClass('matched');
+            // reset array of matchedCards
             matchedCards = [];
+            // run the following functions
             enableFlipping();
             backgroundSound();
-            shuffle(frontOfCards);
+            shuffle(cardImages);
             displayShuffle();
         });
     }
 
-    // function randomImg() {
-    //     let randomNumber = Math.floor(Math.random() * (8 - 1)) + 1;
-    //     let imgName = "panda_gif_" + randomNumber + ".gif";
-    //     document.getElementById("imageid").src = "assets" + "/" + imgName;
-    // }
 
+    // Fisher-Yates (aka Knuth) Shuffle. (NOT MY CODE).
+    function shuffle(array) {
+        let currentIndex = array.length, temporaryValue, randomIndex;
 
-
-
-
-
-
-
-
-
-    // for each card
-    cards.forEach(function (card) {
-        console.log('card', card);
-
-        frontOfCards.push($(card).find('img').attr('src'));
-        console.log(frontOfCards);
-
-        // on click
-        $(card).on('click', function () {
-
-            // add class of flipped
-            card.classList.toggle('flipped');
-
-            fireballSound();
-
-            // make the item unflippable
-            $(this).children().on('click', false);
-
-            // log the flipped cards in an array
-            flippedImages.push($(this).find('img').attr('src'));
-            console.log(flippedImages);
-
-            flippedCards.push($(this));
-            console.log(flippedCards);
-
-            matchedCards.push($('.matched'));
-            // matchedCards.push($('body').find('.matched'));
-            console.log(matchedCards);
-
-
-
-
-            // let number of flipped cards equal to the number of elements with class 'flipped'
-            // const numberOfFlippedImages = $('.flipped').length;
-
-
-            // if number of flipped cards is greater than or equal to 2 
-            // if (numberOfFlippedImages >= 2) {
-            //     // do not let anymore cards be flippable
-            //     $('li').children().on('click', function () { return false; });
-            //     console.log('no more flipping')
-
-            disableFlipping(compareCards);
-
-
-
-            // and check if the two cards that are flipped, match
-            // compareCards();
-        });
-    });
-
-
-
-    console.log(frontOfCards);
-    shuffledCards = shuffle(frontOfCards);
-    console.log(shuffledCards);
-
-
+        while (0 !== currentIndex) {
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex = currentIndex - 1;
+            temporaryValue = array[currentIndex];
+            array[currentIndex] = array[randomIndex];
+            array[randomIndex] = temporaryValue;
+        }
+        return array;
+    }
 
 
     function displayShuffle() {
+        const shuffledCards = shuffle(cardImages);
         for (i = 0; i < shuffledCards.length; i++) {
             let newImage = `<img src="${shuffledCards[i]}">`
-
             $(`.front.${i}`).html(newImage);
-            console.log(`.front.${i}`)
         }
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-    // on click of first image, flip image and stay
-
-    // $('img').on('click', function () {
-
-    // });
-
-    // on click of second image
-    // if first image === second image
-    // keep images flipped and no longer flippable
-    // and increment number of tries
-
-
-    // if first image !== second image
-    // flip back both images
-    // and increment number of tries
-
-
-    // when user matches all the cards
-    // prompt congratulations you won in x tries
+    // FUNCTIONS RUNNED ON DOCUMENT READY
+    cloudAnimation();
+    toggleSound();
+    clickQuestionBox();
+    openInstructions();
+    closeInstructions();
 
 });
