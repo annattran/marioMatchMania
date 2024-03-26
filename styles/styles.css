@@ -1,3 +1,4 @@
+@charset "UTF-8";
 article, aside, details, figcaption, figure, footer, header, hgroup, nav, section, summary {
   display: block;
 }
@@ -61,7 +62,7 @@ pre {
 }
 
 q {
-  quotes: \201C \201D \2018 \2019;
+  quotes: “”‘’;
 }
 
 small {
@@ -76,11 +77,11 @@ sub, sup {
 }
 
 sup {
-  top: -.5em;
+  top: -0.5em;
 }
 
 sub {
-  bottom: -.25em;
+  bottom: -0.25em;
 }
 
 img {
@@ -94,7 +95,7 @@ svg:not(:root) {
 fieldset {
   border: 1px solid silver;
   margin: 0 2px;
-  padding: .35em .625em .75em;
+  padding: 0.35em 0.625em 0.75em;
 }
 
 button, input, select, textarea {
@@ -155,7 +156,7 @@ legend, button::-moz-focus-inner, input::-moz-focus-inner {
   visibility: hidden;
   display: block;
   font-size: 0;
-  content: '';
+  content: "";
   clear: both;
   height: 0;
 }
@@ -200,14 +201,14 @@ body {
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  font-family: 'Bangers', cursive;
+  font-family: "Bangers", cursive;
   color: black;
   overflow: hidden;
 }
 
 h2 {
   font-size: 5rem;
-  letter-spacing: .1rem;
+  letter-spacing: 0.1rem;
 }
 
 p {
@@ -226,7 +227,6 @@ p.moves {
     font-size: 4rem;
   }
 }
-
 @media (max-width: 650px) {
   h2 {
     font-size: 3rem;
@@ -235,7 +235,6 @@ p.moves {
     font-size: 3rem;
   }
 }
-
 ul,
 li {
   padding: 0;
@@ -244,12 +243,8 @@ li {
 }
 
 .container {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   -webkit-perspective: 1000px;
   perspective: 1000px;
 }
@@ -275,7 +270,6 @@ li {
     margin: 10px;
   }
 }
-
 @media (max-width: 890px) {
   .card {
     width: 120px;
@@ -283,14 +277,12 @@ li {
     margin: 5px;
   }
 }
-
 @media (max-width: 650px) {
   .card {
     width: 90px;
     height: 90px;
   }
 }
-
 .card.flipped,
 .card.matched {
   -webkit-transform: translateX(-100%) rotateY(180deg);
@@ -338,7 +330,6 @@ img {
     max-height: calc(100% - 20px);
   }
 }
-
 .back {
   background: url(../assets/brick.png);
   background-size: cover;
@@ -367,13 +358,11 @@ img {
     bottom: 0px;
   }
 }
-
 @media (max-width: 890px) {
   .question {
     width: 70px;
   }
 }
-
 @media (max-width: 650px) {
   .question {
     width: 50px;
@@ -385,7 +374,6 @@ img {
     left: 20px;
   }
 }
-
 .question:hover {
   -webkit-animation: rumble 1s linear infinite;
   animation: rumble 1s linear infinite;
@@ -433,7 +421,7 @@ img {
 }
 
 .modalContent p {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-size: 3rem;
 }
 
@@ -442,13 +430,11 @@ img {
     font-size: 2.5rem;
   }
 }
-
 @media (max-width: 650px) {
   .modalContent p {
     font-size: 2rem;
   }
 }
-
 .title {
   color: #027bbb;
 }
@@ -463,7 +449,6 @@ i {
     font-size: 3rem;
   }
 }
-
 .playAgain,
 .ready,
 i {
@@ -506,7 +491,6 @@ i:hover {
     transform: translateX(60px);
   }
 }
-
 @keyframes chaChing {
   0% {
     opacity: 1;
@@ -528,7 +512,6 @@ i:hover {
     transform: translateX(60px);
   }
 }
-
 @-webkit-keyframes float {
   0% {
     -webkit-transform: translateX(20px) translateY(20px);
@@ -551,7 +534,6 @@ i:hover {
     transform: translateX(20px) translateY(20px);
   }
 }
-
 @keyframes float {
   0% {
     -webkit-transform: translateX(20px) translateY(20px);
@@ -574,7 +556,6 @@ i:hover {
     transform: translateX(20px) translateY(20px);
   }
 }
-
 @-webkit-keyframes fade {
   0% {
     opacity: 0;
@@ -583,7 +564,6 @@ i:hover {
     opacity: 1;
   }
 }
-
 @keyframes fade {
   0% {
     opacity: 0;
@@ -592,7 +572,6 @@ i:hover {
     opacity: 1;
   }
 }
-
 @-webkit-keyframes rumble {
   0% {
     -webkit-transform: rotate(3deg);
@@ -615,7 +594,6 @@ i:hover {
     transform: rotate(3deg);
   }
 }
-
 @keyframes rumble {
   0% {
     -webkit-transform: rotate(3deg);
@@ -638,7 +616,6 @@ i:hover {
     transform: rotate(3deg);
   }
 }
-
 .cloud {
   position: absolute;
   z-index: -1;
@@ -666,7 +643,6 @@ i:hover {
     width: 300px;
   }
 }
-
 @media (max-width: 890px) {
   .single {
     display: none;
@@ -675,16 +651,15 @@ i:hover {
     width: 250px;
   }
 }
-
 @media (max-width: 650px) {
   .double {
     width: 150px;
   }
 }
-
 .coin {
   position: absolute;
   opacity: 0;
   -webkit-animation: chaChing 1s linear;
   animation: chaChing 1s linear;
 }
+
