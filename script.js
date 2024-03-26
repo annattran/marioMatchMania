@@ -131,9 +131,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     function coinAnimation() {
+        const matchedCards = document.querySelectorAll('.matched .front');
         setTimeout(function () {
-            $('.matched .back').html('<img class="coin" src="assets/coin.png">');
-            // insert html inside elements with the class of 'back' and has a parent with class of 'matched'
+            matchedCards.forEach(function (card) {
+                const coin = document.createElement('img');
+                coin.classList.add('coin');
+                coin.src = 'assets/coin.png';
+                card.append(coin);
+            })
         }, 500);
     }
 
