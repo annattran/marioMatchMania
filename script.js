@@ -254,13 +254,24 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    function newGame() {
+        document.getElementById('congratsModal').style.display = "none";
+        // reset counter to 0
+        document.querySelector('.counter').innerText = 0;
+        // create new cards
+        createCards();
+        // reset array of matchedCards
+        matchedCards = [];
+        // run the following functions
+        enableFlipping();
+        win.pause();
+        backgroundSound();
+    }
 
-    function playAgain() {
-        // on click of playAgain
-        document.querySelector('.playAgain').addEventListener('click', function () {
-            document.getElementById('congratsModal').style.display = "none";
-            // reset counter to 0
-            document.querySelector('.counter').innerText = 0;
+
+    function nextLevel() {
+        // on click of nextLevel
+        document.querySelector('.nextLevel').addEventListener('click', function () {
             if (level < Object.keys(levelObject).length) {
                 level++;
                 const levelCount = parseInt(document.querySelector('.level').innerText);
@@ -272,13 +283,15 @@ document.addEventListener("DOMContentLoaded", () => {
                     document.querySelector('.container').classList.add('col-5');
                 }
             }
-            // create new cards
-            createCards();
-            // reset array of matchedCards
-            matchedCards = [];
-            // run the following functions
-            enableFlipping();
-            backgroundSound();
+            newGame();
+        });
+    }
+
+
+    function playAgain() {
+        // on click of playAgain
+        document.querySelector('.playAgain').addEventListener('click', function () {
+            newGame();
         });
     }
 
@@ -289,5 +302,6 @@ document.addEventListener("DOMContentLoaded", () => {
     clickQuestionBox();
     openInstructions();
     closeInstructions();
+    nextLevel();
     playAgain();
 });
