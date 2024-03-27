@@ -216,7 +216,13 @@ p {
   margin: 0;
 }
 
-p.moves {
+div.legend {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   font-size: 4rem;
   color: white;
   text-align: right;
@@ -231,7 +237,7 @@ p.moves {
   h2 {
     font-size: 3rem;
   }
-  p.moves {
+  div.legend {
     font-size: 3rem;
   }
 }
@@ -242,17 +248,36 @@ li {
   list-style: none;
 }
 
+.wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 20px;
+}
+
 .container {
   display: grid;
+  gap: 20px;
   grid-template-columns: repeat(3, 1fr);
   -webkit-perspective: 1000px;
   perspective: 1000px;
 }
 
+.container.col-4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.container.col-5 {
+  grid-template-columns: repeat(5, 1fr);
+}
+
 .card {
   width: 210px;
   height: 210px;
-  margin: 20px;
   position: relative;
   cursor: pointer;
   -webkit-transform-style: preserve-3d;
@@ -264,17 +289,23 @@ li {
 }
 
 @media (max-width: 1180px) {
+  .wrapper,
+  .container {
+    gap: 10px;
+  }
   .card {
     width: 150px;
     height: 150px;
-    margin: 10px;
   }
 }
 @media (max-width: 890px) {
+  .wrapper,
+  .container {
+    gap: 5px;
+  }
   .card {
     width: 120px;
     height: 120px;
-    margin: 5px;
   }
 }
 @media (max-width: 650px) {

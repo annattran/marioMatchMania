@@ -1,6 +1,13 @@
 document.addEventListener("DOMContentLoaded", () => {
     // GLOBAL VARIABLES
     let cards;
+    level = 1;
+    let levelObject = {
+        1: 6,
+        2: 8,
+        3: 10,
+        4: 12
+    };
     const backgroundMusic = document.getElementById("background");
     const soundButton = document.getElementById("sound");
     let randomIntegers = []; // to contain integers that have been generated randomly
@@ -18,10 +25,10 @@ document.addEventListener("DOMContentLoaded", () => {
         return array.filter(item => item == what).length;
     }
 
-    function createRandomIntegers() {
+    function createRandomIntegers(quantity) {
         randomIntegers = [];
-        while (randomIntegers.length < 6) {
-            const randomInt = randomIntFromInterval(1, 3);
+        while (randomIntegers.length < quantity) {
+            const randomInt = randomIntFromInterval(1, quantity / 2);
             if (countInArray(randomIntegers, randomInt) < 2) {
                 randomIntegers.push(randomInt);
             }
@@ -29,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function createCards() {
-        createRandomIntegers();
+        createRandomIntegers(levelObject[level]);
         document.querySelector('.container').innerText = '';
         for (let i = 0; i < randomIntegers.length; i++) {
             const card = document.createElement('li');
@@ -125,7 +132,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 enableFlipping();
                 counter();
                 totalMoves();
-                openCongrats(playAgain);
+                openCongrats();
                 closeCongrats();
             } else {
                 setTimeout(function () {
@@ -206,7 +213,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    function openCongrats(callback) {
+    function openCongrats() {
         if (matchedCards.length === cards.length) {
             setTimeout(function () {
                 document.getElementById('congratsModal').style.display = "block";
@@ -216,7 +223,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 winSound();
             }, 800);
         }
-        callback();
     }
 
 
@@ -229,9 +235,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function closeCongrats() {
         document.querySelector('.congrats .close').addEventListener('click', function () {
-            document.getElementById('congratsModal').style.display = "none";
-        });
-        document.querySelector('.playAgain').addEventListener('click', function () {
             document.getElementById('congratsModal').style.display = "none";
         });
     }
@@ -255,9 +258,21 @@ document.addEventListener("DOMContentLoaded", () => {
     function playAgain() {
         // on click of playAgain
         document.querySelector('.playAgain').addEventListener('click', function () {
+            document.getElementById('congratsModal').style.display = "none";
             // reset counter to 0
             document.querySelector('.counter').innerText = 0;
-            // remove 'flipped' & 'matched' classes off all cards
+            if (level < Object.keys(levelObject).length) {
+                level++;
+                const levelCount = parseInt(document.querySelector('.level').innerText);
+                document.querySelector('.level').innerText = levelCount + 1;
+                document.querySelector('.container').classList.remove('col-4', 'col-5');
+                if (levelObject[level] % 4 === 0) {
+                    document.querySelector('.container').classList.add('col-4');
+                } else if (levelObject[level] % 5 === 0) {
+                    document.querySelector('.container').classList.add('col-5');
+                }
+            }
+            // create new cards
             createCards();
             // reset array of matchedCards
             matchedCards = [];
@@ -274,5 +289,5 @@ document.addEventListener("DOMContentLoaded", () => {
     clickQuestionBox();
     openInstructions();
     closeInstructions();
-
+    playAgain();
 });

@@ -34,7 +34,9 @@ p {
   margin: 0;
 }
 
-p.moves {
+div.legend {
+  display: flex;
+  justify-content: space-between;
   font-size: 4rem;
   color: white;
   text-align: right;
@@ -50,7 +52,7 @@ p.moves {
   h2 {
     font-size: 3rem;
   }
-  p.moves {
+  div.legend {
     font-size: 3rem;
   }
 }
