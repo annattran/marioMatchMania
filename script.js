@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
     // GLOBAL VARIABLES
-    const cards = document.querySelectorAll('.card');
+    let cards;
     const backgroundMusic = document.getElementById("background");
     const soundButton = document.getElementById("sound");
     let randomIntegers = []; // to contain integers that have been generated randomly
@@ -19,6 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function createRandomIntegers() {
+        randomIntegers = [];
         while (randomIntegers.length < 6) {
             const randomInt = randomIntFromInterval(1, 3);
             if (countInArray(randomIntegers, randomInt) < 2) {
@@ -27,41 +28,52 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    function randomizeCards(card, index) {
-        const image = document.createElement('img');
-
-        image.src = `assets/card${randomIntegers[index]}.png`;
-
-        card.querySelector('.front.face').innerText = '';
-
-        card.querySelector('.front.face').append(image);
-    }
-
-    // for each item in array 'cards'
-    cards.forEach(function (card, index) {
-
+    function createCards() {
         createRandomIntegers();
-        randomizeCards(card, index);
+        document.querySelector('.container').innerText = '';
+        for (let i = 0; i < randomIntegers.length; i++) {
+            const card = document.createElement('li');
+            card.classList.add('card');
+            document.querySelector('.container').append(card);
 
-        // additionally, on the click of each item
-        card.addEventListener('click', () => {
-            // add class of flipped
-            card.classList.toggle('flipped');
-            // run fireballSound
-            fireballSound();
-            // make the item unflippable
-            card.style.pointerEvents = 'none';
-            // log this card as flipped
-            flippedCards.push(card);
-            // log the card's img name as flipped
-            flippedImages.push(card.querySelector('img').src);
-            // look for elements with the class of 'matched'
-            // and push into matchedCards array
-            matchedCards.push(document.querySelectorAll('.matched'));
-            // run disableFlipping and compareCards
-            disableFlipping(compareCards);
+            const front = document.createElement('div');
+            front.classList.add('front', 'face');
+            card.append(front);
+
+            const back = document.createElement('div');
+            back.classList.add('back', 'face');
+            card.append(back);
+
+            const image = document.createElement('img');
+            image.src = `assets/card${randomIntegers[i]}.png`;
+            card.querySelector('.front.face').append(image);
+        }
+
+        cards = document.querySelectorAll('.card')
+
+        // for each item in array 'cards'
+        cards.forEach(function (card, index) {
+
+            // additionally, on the click of each item
+            card.addEventListener('click', () => {
+                // add class of flipped
+                card.classList.toggle('flipped');
+                // run fireballSound
+                fireballSound();
+                // make the item unflippable
+                card.style.pointerEvents = 'none';
+                // log this card as flipped
+                flippedCards.push(card);
+                // log the card's img name as flipped
+                flippedImages.push(card.querySelector('img').src);
+                // look for elements with the class of 'matched'
+                // and push into matchedCards array
+                matchedCards.push(document.querySelectorAll('.matched'));
+                // run disableFlipping and compareCards
+                disableFlipping(compareCards);
+            });
         });
-    });
+    }
 
 
     function disableFlipping(callback) {
@@ -246,12 +258,7 @@ document.addEventListener("DOMContentLoaded", () => {
             // reset counter to 0
             document.querySelector('.counter').innerText = 0;
             // remove 'flipped' & 'matched' classes off all cards
-            randomIntegers = [];
-            cards.forEach(function (card, index) {
-                card.classList.remove('flipped', 'matched');
-                createRandomIntegers();
-                randomizeCards(card, index);
-            })
+            createCards();
             // reset array of matchedCards
             matchedCards = [];
             // run the following functions
@@ -262,6 +269,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     // FUNCTIONS RUNNED ON DOCUMENT READY
+    createCards();
     toggleSound();
     clickQuestionBox();
     openInstructions();
