@@ -215,6 +215,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function openCongrats() {
         if (matchedCards.length === cards.length) {
+            if (level === Object.keys(levelObject).length) {
+                document.querySelector('#congratsModal h2').innerText = 'Congratulations! You completed the last level.';
+                document.querySelector('#congratsModal .buttonContainer').remove();
+            }
             setTimeout(function () {
                 document.getElementById('congratsModal').style.display = "block";
             }, 500);
