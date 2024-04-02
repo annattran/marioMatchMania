@@ -1,9 +1,40 @@
-.fa-volume-mute,
-.fa-volume-up {
+.sound,
+.sound::before {
+  cursor: pointer;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+.sound {
   position: absolute;
   top: 30px;
   right: 50px;
   color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 72px;
+  width: 72px;
+  border: 2px dashed transparent;
+  border-radius: 100%;
+  overflow: hidden;
+}
+
+.sound::before {
+  position: absolute;
+  content: '';
+  height: 64px;
+  width: 64px;
+  border: 2px dashed white;
+  border-radius: 100%;
+  top: 0;
+  right: 0;
+  opacity: 0;
+}
+
+.sound:hover::before {
+  opacity: 1;
+  -webkit-animation: rotate 12s linear infinite;
 }
 
 .question {
@@ -23,7 +54,7 @@
 
 @media (max-width:890px) {
   .question {
-    width:70px;
+    width: 70px;
   }
 }
 
@@ -31,15 +62,15 @@
   .question {
     width: 50px;
   }
-  .fa-volume-mute,
-  .fa-volume-up {
-    top: 20px;
-    right:initial;
-    left:20px;
+
+  .sound {
+    top: 0;
+    right: initial;
+    left: 0;
   }
 }
 
 .question:hover {
   -webkit-animation: rumble 1s linear infinite;
-          animation: rumble 1s linear infinite;
+  animation: rumble 1s linear infinite;
 }

@@ -69,20 +69,36 @@ i {
 }
 
 button,
-i {
+.close {
   cursor: pointer;
-  -webkit-transition: 1s;
-  transition: 1s;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
 }
 
-button:hover,
-i:hover {
-  -webkit-transform: scale(1.1);
-  transform: scale(1.1);
+.instructions.modal button:hover {
+  transform: translateY(-10px);
+  background: #027bbb;
+}
+
+.congrats.modal button:hover {
+  transform: translateX(10px);
+}
+
+.congrats.modal button.nextLevel:hover {
+  background: #027bbb;
+}
+
+.congrats.modal button.playAgain:hover {
+  color: #027bbb;
+  border-color: #027bbb;
 }
 
 .close {
-  text-align: right;
   position: absolute;
   right: 10px;
+  top: 10px;
+}
+
+.close:hover {
+  color: #027bbb;
 }

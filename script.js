@@ -10,6 +10,9 @@ document.addEventListener("DOMContentLoaded", () => {
     };
     const backgroundMusic = document.getElementById("background");
     const soundButton = document.getElementById("sound");
+    const fireball = document.getElementById("fireball");
+    const coin = document.getElementById("coin");
+    const win = document.getElementById("win");
     let randomIntegers = []; // to contain integers that have been generated randomly
     let flippedCards = []; // to contain cards that are flipped
     let matchedCards = []; // to contain cards that are matched
@@ -164,16 +167,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function toggleSound() {
         soundButton.addEventListener('click', function () {
-            soundButton.classList.toggle('fa-volume-mute');
-            soundButton.classList.toggle('fa-volume-up');
+            soundButton.querySelector('i').classList.toggle('fa-volume-mute');
+            soundButton.querySelector('i').classList.toggle('fa-volume-up');
             backgroundSound();
+            fireball.pause();
+            coin.pause();
+            win.pause();
         })
     }
 
 
     function fireballSound() {
-        const fireball = document.getElementById("fireball");
-        if (sound.classList.contains('fa-volume-mute')) {
+        if (soundButton.querySelector('i').classList.contains('fa-volume-mute')) {
             fireball.pause();
         } else {
             fireball.play();
@@ -182,9 +187,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     function coinSound() {
-        const coin = document.getElementById("coin");
         setTimeout(function () {
-            if (sound.classList.contains('fa-volume-mute')) {
+            if (soundButton.querySelector('i').classList.contains('fa-volume-mute')) {
                 coin.pause();
             } else {
                 coin.play();
@@ -194,8 +198,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     function winSound() {
-        const win = document.getElementById("win");
-        if (sound.classList.contains('fa-volume-mute')) {
+        if (soundButton.querySelector('i').classList.contains('fa-volume-mute')) {
             win.pause();
         } else {
             win.play();
@@ -205,7 +208,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function backgroundSound() {
         backgroundMusic.loop = true;
-        if (sound.classList.contains('fa-volume-mute')) {
+        if (soundButton.querySelector('i').classList.contains('fa-volume-mute')) {
             backgroundMusic.pause();
         } else {
             backgroundMusic.play();
