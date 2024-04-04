@@ -16,8 +16,13 @@
   grid-template-columns: repeat(4, 1fr);
 }
 
-.container.col-5 {
-  grid-template-columns: repeat(5, 1fr);
+.container.last-level {
+  gap: 10px;
+}
+
+.container.last-level .card {
+  width: 150px;
+  height: 150px;
 }
 
 
@@ -50,10 +55,12 @@
 @media (max-width:890px) {
 
   .wrapper,
-  .container {
+  .container,
+  .container.last-level {
     gap: 5px;
   }
 
+  .container.last-level .card,
   .card {
     width: 120px;
     height: 120px;
@@ -61,9 +68,11 @@
 }
 
 @media (max-width:650px) {
+
+  .container.last-level .card,
   .card {
-    width: 90px;
-    height: 90px;
+    width: 80px;
+    height: 80px;
   }
 }
 
