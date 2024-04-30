@@ -53,10 +53,6 @@
   }
 }
 
-.title {
-  color: #027bbb;
-}
-
 i {
   font-size: 4rem;
   padding: 10px;
@@ -91,6 +87,34 @@ button,
 .congrats.modal button.playAgain:hover {
   color: #027bbb;
   border-color: #027bbb;
+}
+
+.congrats.modal form {
+  margin-top: 40px;
+}
+
+.congrats.modal input {
+  text-align: center;
+  border: 1px solid black;
+}
+
+.leaderboard.modal .table-container {
+  overflow-y: auto;
+  height: 165px;
+}
+
+.leaderboard.modal table {
+  font-size: 20px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.leaderboard.modal th {
+  padding: 0 20px 10px;
+}
+
+.leaderboard.modal tr.active {
+  background: black;
+  color: white;
 }
 
 .close {

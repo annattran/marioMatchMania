@@ -33,14 +33,41 @@
 
 
     <!-- MODALS -->
-    <div id="congratsModal" class="congrats modal">
-        <div class="congrats modalContent">
+    <div id="greatJobModal" class="congrats modal">
+        <div class="modalContent">
             <div class="close"><i class="fas fa-times"></i></div>
             <h2 class="title">Great job!</h2>
-            <p>It only took <span class="totalMoves"></span> moves!</p>
+            <p>It only took <span class="numberOfMoves"></span> moves!</p>
             <div class="buttonContainer">
                 <button class="nextLevel">Next level</button>
                 <button class="playAgain">Play again</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="congratsModal" class="congrats modal">
+        <div class="modalContent">
+            <div class="close"><i class="fas fa-times"></i></div>
+            <h2 class="title">Congratulations!</h2>
+            <p>You completed all levels!</p>
+            <form>
+                <input type="text" id="name" placeholder="Enter your name" required>
+            </form>
+        </div>
+    </div>
+
+    <div id="leaderboardModal" class="leaderboard modal">
+        <div class="modalContent">
+            <div class="close"><i class="fas fa-times"></i></div>
+            <h2 class="title">Top Players</h2>
+            <div class="table-container">
+                <table>
+                    <tr>
+                        <th>Ranking</th>
+                        <th>Player</th>
+                        <th>Moves</th>
+                    </tr>
+                </table>
             </div>
         </div>
     </div>
@@ -89,6 +116,74 @@
     <!-- SCRIPT TAGS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="script.js"></script>
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
+        import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-database.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyAqLwHxOcSxuGfRXyF54MK1kPOqcFSh0n8",
+            authDomain: "mario-match-leaderboard.firebaseapp.com",
+            projectId: "mario-match-leaderboard",
+            storageBucket: "mario-match-leaderboard.appspot.com",
+            messagingSenderId: "409986951666",
+            appId: "1:409986951666:web:2018248ea88e1ed223636b"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        // Initialize Database content
+        const database = getDatabase(app)
+        const dbRef = ref(database);
+
+        document.querySelector('#congratsModal form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const playerInformation = {
+                name: document.getElementById('name').value,
+                score: document.getElementById('name').getAttribute('data-score')
+            };
+            push(dbRef, playerInformation);
+
+            onValue(dbRef, (data) => {
+                const playerData = data.val();
+                const arrayOfPlayers = [];
+
+                for (let player in playerData) {
+                    arrayOfPlayers.push(playerData[player])
+                };
+
+                arrayOfPlayers.sort((a, b) => a.score - b.score);
+                arrayOfPlayers.forEach(function (person, index) {
+                    const tableRow = document.createElement('tr');
+                    if (person.name === playerInformation.name && person.score === playerInformation.score) {
+                        tableRow.classList.add('active');
+                    }
+                    // ranking
+                    const ranking = document.createElement('td');
+                    ranking.appendChild(document.createTextNode(index + 1));
+                    tableRow.appendChild(ranking);
+                    // name
+                    const name = document.createElement('td');
+                    name.appendChild(document.createTextNode(person.name));
+                    tableRow.appendChild(name);
+                    // score
+                    const score = document.createElement('td');
+                    score.appendChild(document.createTextNode(person.score));
+                    tableRow.appendChild(score);
+
+                    document.querySelector('#leaderboardModal table').append(tableRow);
+                })
+            })
+
+            setTimeout(function () {
+                document.getElementById('congratsModal').style.display = "none";
+                document.getElementById('leaderboardModal').style.display = "block";
+            }, 500);
+        });
+    </script>
 
 </body>
 

@@ -24,7 +24,8 @@ body {
   overflow: hidden;
 }
 
-h2 {
+h2,
+input {
   font-size: 5rem;
   letter-spacing: .1rem;
   margin-top: 0;
@@ -69,7 +70,8 @@ div.legend {
 
 @media (max-width:1180px) {
 
-  h2 {
+  h2,
+  input {
     font-size: 4rem;
   }
 
@@ -85,7 +87,8 @@ div.legend {
 
 @media (max-width:650px) {
 
-  h2 {
+  h2,
+  input {
     font-size: 3rem;
   }
 

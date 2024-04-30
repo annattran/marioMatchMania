@@ -1,7 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
     // GLOBAL VARIABLES
     let cards;
-    level = 1;
+    let totalMoves = 0;
+    let level = 1;
     let levelObject = {
         1: 6,
         2: 8,
@@ -114,15 +115,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     function counter() {
+        totalMoves++;
         let counter = parseInt(document.querySelector('.counter').innerText);
-        document.querySelector('.counter').innerText = counter + 1;
+        let count = counter + 1;
+        document.querySelector('.counter').innerText = count;
+        document.querySelector('.numberOfMoves').innerText = count;
     }
-
-
-    function totalMoves() {
-        document.querySelector('.totalMoves').innerText = document.querySelector('.counter').innerText;
-    }
-
 
     function compareCards() {
         if (flippedImages.length === 2) {
@@ -134,9 +132,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 clearArrays();
                 enableFlipping();
                 counter();
-                totalMoves();
                 openCongrats();
-                closeCongrats();
             } else {
                 setTimeout(function () {
                     flippedCards[0].classList.remove('flipped');
@@ -145,7 +141,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     matchedCards.splice(-2);
                     enableFlipping();
                     counter();
-                    totalMoves();
                 }, 1000);
             }
         }
@@ -219,12 +214,15 @@ document.addEventListener("DOMContentLoaded", () => {
     function openCongrats() {
         if (matchedCards.length === cards.length) {
             if (level === Object.keys(levelObject).length) {
-                document.querySelector('#congratsModal h2').innerText = 'Congratulations! You completed the last level.';
-                document.querySelector('#congratsModal .buttonContainer').remove();
+                document.querySelector('#congratsModal input').setAttribute('data-score', totalMoves);
+                setTimeout(function () {
+                    document.getElementById('congratsModal').style.display = "block";
+                }, 500);
+            } else {
+                setTimeout(function () {
+                    document.getElementById('greatJobModal').style.display = "block";
+                }, 500);
             }
-            setTimeout(function () {
-                document.getElementById('congratsModal').style.display = "block";
-            }, 500);
             setTimeout(function () {
                 background.pause();
                 winSound();
@@ -240,9 +238,16 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    function closeCongrats() {
-        document.querySelector('.congrats .close').addEventListener('click', function () {
-            document.getElementById('congratsModal').style.display = "none";
+    function closeModal() {
+        const closeButtons = document.querySelectorAll('.close')
+        closeButtons.forEach(function (button) {
+            button.addEventListener('click', function (e) {
+                e.target.closest('.modal').style.display = "none";
+            })
+        })
+
+        document.querySelector('.ready').addEventListener('click', function () {
+            document.getElementById('instructionsModal').style.display = "none";
         });
     }
 
@@ -251,18 +256,8 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById('instructionsModal').style.display = "block";
     }
 
-
-    function closeInstructions() {
-        document.querySelector('.instructions .close').addEventListener('click', function () {
-            document.getElementById('instructionsModal').style.display = "none";
-        });
-        document.querySelector('.ready').addEventListener('click', function () {
-            document.getElementById('instructionsModal').style.display = "none";
-        });
-    }
-
     function newGame() {
-        document.getElementById('congratsModal').style.display = "none";
+        document.getElementById('greatJobModal').style.display = "none";
         // reset counter to 0
         document.querySelector('.counter').innerText = 0;
         // create new cards
@@ -309,7 +304,7 @@ document.addEventListener("DOMContentLoaded", () => {
     toggleSound();
     clickQuestionBox();
     openInstructions();
-    closeInstructions();
+    closeModal();
     nextLevel();
     playAgain();
 });
