@@ -5,8 +5,8 @@ document.addEventListener("DOMContentLoaded", () => {
     let levelObject = {
         1: 6,
         2: 8,
-        3: 10,
-        4: 12
+        3: 12,
+        4: 16
     };
     const backgroundMusic = document.getElementById("background");
     const soundButton = document.getElementById("sound");
@@ -283,11 +283,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 level++;
                 const levelCount = parseInt(document.querySelector('.level').innerText);
                 document.querySelector('.level').innerText = levelCount + 1;
-                document.querySelector('.container').classList.remove('col-4', 'col-5');
+                document.querySelector('.container').classList.remove('col-4');
                 if (levelObject[level] % 4 === 0) {
                     document.querySelector('.container').classList.add('col-4');
-                } else if (levelObject[level] % 5 === 0) {
-                    document.querySelector('.container').classList.add('col-5');
+                    if (level == 4) {
+                        document.querySelector('.container').classList.add('last-level');
+                    }
                 }
             }
             newGame();
